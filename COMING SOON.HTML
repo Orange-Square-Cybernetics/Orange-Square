@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon</title>
+    <style>
+        /* General Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+            background-color: #000; /* Dark black background */
+            color: #fff; /* Bright white text */
+            display: flex;
+            flex-direction: column; /* Stack logo and text vertically */
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden; /* Prevent scrolling */
+            position: relative; /* For pseudo-elements */
+        }
+
+        /* Logo Styles */
+        .logo {
+            width: 150px; /* Adjust logo size */
+            position: absolute; /* Position at the very top */
+            top: 20px; /* Space from the top */
+        }
+
+        /* Coming Soon Text */
+        .coming-soon {
+            font-size: 10rem; /* Very large text */
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #fff; /* Bright white */
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.6); /* Glow effect */
+            animation: glow 2s infinite alternate; /* Glow animation */
+            position: relative; /* For pseudo-elements */
+            z-index: 2; /* Ensure text is above the walls */
+        }
+
+        /* Wall-Like Effect */
+        .coming-soon::before,
+        .coming-soon::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 20vw; /* Responsive width based on viewport width */
+            background: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)); /* Gradient for smooth transition */
+            z-index: 1; /* Ensure walls are below the text */
+        }
+
+        .coming-soon::before {
+            left: -20vw; /* Position left wall */
+        }
+
+        .coming-soon::after {
+            right: -20vw; /* Position right wall */
+            background: linear-gradient(to left, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)); /* Reverse gradient for right wall */
+        }
+
+        /* Glow Animation */
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.6);
+            }
+            100% {
+                text-shadow: 0 0 30px rgba(255, 255, 255, 1), 0 0 60px rgba(255, 255, 255, 0.8);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .coming-soon {
+                font-size: 5rem; /* Adjust for smaller screens */
+            }
+            .logo {
+                width: 100px; /* Smaller logo for mobile */
+            }
+            .coming-soon::before,
+            .coming-soon::after {
+                width: 15vw; /* Narrower walls for smaller screens */
+            }
+            .coming-soon::before {
+                left: -15vw; /* Adjust left wall position */
+            }
+            .coming-soon::after {
+                right: -15vw; /* Adjust right wall position */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo -->
+    <img src="logo.png" alt="Logo" class="logo">
+
+    <!-- Coming Soon Text -->
+    <div class="coming-soon">Coming Soon</div>
+</body>
+</html>

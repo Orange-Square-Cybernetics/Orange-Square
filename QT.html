@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Under Construction</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* General Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            color: #fff; /* White text */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden; /* Prevent scrolling */
+            background: url('pexels-pavel-danilyuk-8438880.jpg') no-repeat center center fixed; /* Fixed background */
+            background-size: cover; /* Cover the entire screen */
+        }
+
+        /* Overlay to darken the background */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+            z-index: -1; /* Place behind the content */
+        }
+
+        /* Logo Styles */
+        .logo {
+            width: 150px; /* Adjust logo size */
+            margin-bottom: 20px; /* Space below the logo */
+        }
+
+        /* Heading Styles */
+        h1 {
+            font-size: 3rem; /* Large heading */
+            font-weight: 600;
+            margin: 0;
+            animation: fadeIn 2s ease-in-out; /* Fade-in animation */
+        }
+
+        /* Subheading Styles */
+        p {
+            font-size: 1.2rem;
+            color: #ccc; /* Light gray text */
+            margin: 10px 0 30px 0;
+            animation: fadeIn 3s ease-in-out; /* Fade-in animation */
+        }
+
+        /* Countdown Timer Styles */
+        #countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Space between timer units */
+            margin-bottom: 30px;
+            animation: fadeIn 4s ease-in-out; /* Fade-in animation */
+        }
+
+        #countdown div {
+            background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 2rem;
+            font-weight: 600;
+            min-width: 100px; /* Ensure consistent width */
+        }
+
+        #countdown span {
+            display: block;
+            font-size: 0.8rem;
+            color: #ccc; /* Light gray text */
+            margin-top: 5px;
+        }
+
+        /* Social Media Icons */
+        .social-icons {
+            display: flex;
+            gap: 20px; /* Space between icons */
+            animation: fadeIn 5s ease-in-out; /* Fade-in animation */
+        }
+
+        .social-icons a {
+            color: #fff; /* White icons */
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #007BFF; /* Blue on hover */
+        }
+
+        /* Fade-In Animation */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem; /* Smaller heading for mobile */
+            }
+            p {
+                font-size: 1rem; /* Smaller subheading for mobile */
+            }
+            #countdown div {
+                font-size: 1.5rem; /* Smaller timer for mobile */
+                min-width: 80px; /* Smaller width for mobile */
+                padding: 15px;
+            }
+            .logo {
+                width: 100px; /* Smaller logo for mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo -->
+    <img src="logo.png" alt="Logo" class="logo">
+
+    <!-- Heading -->
+    <h1>Under Construction</h1>
+
+    <!-- Subheading -->
+    <p>We're working hard to bring you something amazing. Stay tuned!</p>
+
+    <!-- Countdown Timer -->
+    <div id="countdown">
+        <div><span id="days">365</span><span>Days</span></div>
+        <div><span id="hours">00</span><span>Hours</span></div>
+        <div><span id="minutes">00</span><span>Minutes</span></div>
+        <div><span id="seconds">00</span><span>Seconds</span></div>
+    </div>
+
+    <!-- Social Media Icons -->
+    <div class="social-icons">
+        <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+
+    <!-- Countdown Timer Script -->
+    <script>
+        // Set the date we're counting down to
+        const countdownDate = new Date("2024-12-31T23:59:59").getTime();
+
+        // Update the countdown every second
+        const countdownFunction = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+
+            // Calculate days, hours, minutes, and seconds
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Display the result
+            document.getElementById("days").innerText = String(days).padStart(2, "0");
+            document.getElementById("hours").innerText = String(hours).padStart(2, "0");
+            document.getElementById("minutes").innerText = String(minutes).padStart(2, "0");
+            document.getElementById("seconds").innerText = String(seconds).padStart(2, "0");
+
+            // If the countdown is over, display a message
+            if (distance < 0) {
+                clearInterval(countdownFunction);
+                document.getElementById("countdown").innerHTML = "<div>We're Live!</div>";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
