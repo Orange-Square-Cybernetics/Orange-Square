@@ -1,0 +1,531 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orange Square</title>
+    <!-- Add Roboto font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            color: #000; /* Default text color */
+            scroll-behavior: smooth; /* Smooth scrolling */
+        }
+
+        /* Header with White Box */
+        header {
+            background: white; /* White background for the header */
+            color: #000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000; /* Ensure header stays on top */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+            box-sizing: border-box; /* Ensure padding is included in the width */
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            
+        }
+
+        .logo-container img {
+            display: block;
+        }
+
+        .heading-small {
+            font-family: 'Roboto', sans-serif;
+            font-size: 20px;
+            margin: 0;
+            font-weight: bold;
+            color: black;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav a {
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+            white-space: nowrap; /* Prevent text from wrapping */
+        }
+
+        nav a:hover {
+            color: gray;
+            text-decoration: underline;
+        }
+
+        /* Hero Section with Scrolling Text Effect */
+        .hero {
+            height: 100vh;
+            background: url('robotics_background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            position: relative;
+        }
+
+        .scale-text {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3vw;
+            text-align: center;
+            white-space: nowrap;
+            transition: 0.3s linear;
+            font-family: 'Roboto', sans-serif;
+            font-weight: bold;
+            color: white;
+            z-index: 10; /* Ensure text stays above the background */
+        }
+
+        /* Content Sections */
+        section {
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1; /* Ensure content stays above the scaling text */
+            background: white; /* White background for content sections */
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        section p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background: #222;
+            color: #fff;
+            position: relative;
+            z-index: 1; /* Ensure footer stays above the scaling text */
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header id="website-header">
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="logo.png" alt="Orange Square Logo" height="40" width="40">
+            </div>
+            <h2 class="heading-small">Orange Square</h2>
+        </div>
+        <!-- Navigation -->
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section with Scrolling Text Effect -->
+        <section id="home" class="hero">
+            <div class="scale-text">innovate. iterate. inspire.</div>
+        </section>
+
+       <!-- Projects Section -->
+<section id="projects" style="padding: 60px 20px; text-align: center; background: #f9f9f9;">
+    <h2 style="font-size: 2.5rem; margin-bottom: 10px;">Projects</h2>
+    <h4 style="font-size: 1.2rem; color: #666; margin-bottom: 40px;">Explore our latest robotics projects.</h4>
+    
+    <!-- Container for Horizontal Boxes -->
+    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+        <!-- Project Card 1 -->
+        <div class="project-card" style="display: inline-block; background: white; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; max-width: 400px; width: 100%;">
+            <a href="https://Orange-Square-Cybernetics.github.io/Orange-Square/A1B-AR.html" style="text-decoration: none; color: inherit;">
+                <img src="https://images.pexels.com/photos/3913025/pexels-photo-3913025.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="M1 Bionic Arm" style="width: 100%; height: auto; display: block;">
+                <div style="padding: 20px;">
+                    <h1 style="font-size: 1.8rem; margin: 0; color: black; transition: color 0.3s ease, transform 0.3s ease;">M1 Bionic Arm</h1>
+                </div>
+            </a>
+        </div>
+
+        <!-- Project Card 2 -->
+        <div class="project-card" style="display: inline-block; background: white; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; max-width: 400px; width: 100%;">
+            <a href="https://Orange-Square-Cybernetics.github.io/Orange-Square/QT.html" style="text-decoration: none; color: inherit;">
+                <img src="https://images.pexels.com/photos/8439000/pexels-photo-8439000.jpeg" alt="M1 Bionic Arm" style="width: 100%; height: auto; display: block;">
+                <div style="padding: 20px;">
+                    <h1 style="font-size: 1.8rem; margin: 0; color: black; transition: color 0.3s ease, transform 0.3s ease;">Q T</h1>
+                </div>
+            </a>
+        </div>
+        
+        <!-- Project Card 2 -->
+        <div class="project-card" style="display: inline-block; background: white; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; max-width: 400px; width: 100%;">
+            <a href="https://Orange-Square-Cybernetics.github.io/Orange-Square/COMING%20SOON.HTML" style="text-decoration: none; color: inherit;">
+                <img src="https://images.pexels.com/photos/31233565/pexels-photo-31233565/free-photo-of-futuristic-chrome-robot-sculpture-in-urban-setting.jpeg" alt="M1 Bionic Arm" style="width: 100%; height: auto; display: block;">
+                <div style="padding: 20px;">
+                    <h1 style="font-size: 1.8rem; margin: 0; color: black; transition: color 0.3s ease, transform 0.3s ease;">COMING SOON!</h1>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Hover Effect for Project Title -->
+<style>
+    .project-card:hover h1 {
+        color: #007BFF; /* Change text color on hover */
+         /*(text-decoration: underline;) Add underline on hover */
+        transform: scale(1.05); /* Slightly enlarge the text */
+    }
+
+    .project-card:hover {
+        transform: translateY(-10px); /* Lift the card on hover */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+    }
+</style>
+
+        <!-- About Us Section -->
+        <section class="about-section" id="about" style="font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif; max-width: 1200px; margin: 0 auto; padding: 60px 20px; color: #1d1d1f;">
+    <div style="text-align: center; margin-bottom: 50px;">
+        <h2 style="font-size: 40px; font-weight: 600; letter-spacing: -0.5px; margin-bottom: 20px; color: #000;">Our Story</h2>
+        <p style="font-size: 24px; line-height: 1.4; max-width: 800px; margin: 0 auto; color: #86868b;">
+            We're passionate about creating exceptional experiences. What started as a simple idea has grown into something remarkable, 
+            thanks to the support of people like you.
+        </p>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 60px;">
+        <div style="flex: 1; min-width: 300px; background: linear-gradient(135deg, #f5f5f7 0%, #ffffff 100%); border-radius: 18px; padding: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+            <h3 style="font-size: 28px; font-weight: 500; margin-bottom: 20px; color: #000;">Who We Are</h3>
+            <p style="font-size: 17px; line-height: 1.5; color: #515154; margin-bottom: 25px;">
+                We're a dedicated team of innovators committed to excellence in everything we create. 
+                Our mission is to deliver products and services that inspire and make a difference.
+            </p>
+            <p style="font-size: 17px; line-height: 1.5; color: #515154;">
+                Every day, we're pushing boundaries and reimagining what's possible - because we believe 
+                the best way to predict the future is to create it.
+            </p>
+        </div>
+
+        <div style="flex: 1; min-width: 300px; background: linear-gradient(135deg, #fef0e4 0%, #fff9f5 100%); border-radius: 18px; padding: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); position: relative; overflow: hidden;">
+            <div style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background-color: #fa7d1a; border-radius: 50%; opacity: 0.1;"></div>
+            <h3 style="font-size: 28px; font-weight: 500; margin-bottom: 20px; color: #000;">Love Our Work?</h3>
+            <p style="font-size: 17px; line-height: 1.5; color: #515154; margin-bottom: 25px;">
+                If our work has brightened your day or added value to your life, consider supporting us with 
+                a coffee. It helps keep us going and allows us to create more amazing things for you.
+            </p>
+            
+            <form action="https://www.paypal.com/donate" method="post" target="_blank" style="margin-top: 30px;">
+                <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL@example.com">
+                <input type="hidden" name="currency_code" value="USD">
+                <button type="submit" style="background: linear-gradient(to right, #ff9500, #ff5e00); border: none; color: white; padding: 12px 30px; font-size: 17px; border-radius: 30px; cursor: pointer; display: inline-flex; align-items: center; transition: all 0.3s; box-shadow: 0 4px 15px rgba(255, 94, 0, 0.3);">
+                    <svg style="width: 20px; height: 20px; margin-right: 10px;" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11.23 7.29V3.283c0-.427.34-.782.77-.782.385 0 .711.298.763.677l.007.104v4.01h1.46V3.283c0-.427.342-.782.77-.782.386 0 .712.298.764.677l.006.104v4.01h.542c.84 0 1.523.68 1.523 1.523v8.094c0 .798-.65 1.448-1.448 1.448H9.548A1.448 1.448 0 0 1 8.1 17.906V8.812c0-.843.683-1.523 1.523-1.523h1.606zm-1.232 5.156a.77.77 0 0 0-.766.775c0 .427.343.775.766.775.425 0 .768-.348.768-.775a.77.77 0 0 0-.768-.775zm5.842 0a.77.77 0 0 0-.767.775c0 .427.344.775.767.775a.77.77 0 0 0 .767-.775.77.77 0 0 0-.767-.775z"/>
+                    </svg>
+                    Gift Us a Coffee
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
+        <!-- Contact Section -->
+        <!-- ======= Contact Section ======= -->
+<section id="contact" id="contact" style="font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif; padding: 80px 0; background-color: #fafafa;">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+    <!-- Header -->
+    <div style="text-align: center; margin-bottom: 60px;">
+      <h2 style="font-size: 2.5rem; font-weight: 600; margin-bottom: 1rem; background: linear-gradient(90deg, #0066FF, #5E3BEC); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;">
+        Get In Touch
+      </h2>
+      <p style="font-size: 1.25rem; color: #86868b; max-width: 600px; margin: 0 auto;">
+        We'd love to hear from you. Choose how you'd like to contact us below.
+      </p>
+    </div>
+    
+    <!-- Contact Cards -->
+    <div style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center;">
+      <!-- Email Card (Triggers Popup) -->
+      <div id="emailCard" style="flex: 1; min-width: 280px; background: #fff; border-radius: 18px; padding: 40px; box-shadow: 0 5px 25px rgba(0,0,0,0.05); transition: all 0.3s ease; cursor: pointer;" 
+           onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 15px 30px rgba(0,0,0,0.1)'" 
+           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 5px 25px rgba(0,0,0,0.05)'">
+        <div style="width: 60px; height: 60px; background: #F0F7FF; border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 25px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="#0066FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M22 6L12 13L2 6" stroke="#0066FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 style="font-size: 1.375rem; font-weight: 600; margin-bottom: 0.75rem;">Email Us</h3>
+        <p style="color: #86868b; margin-bottom: 1.5rem;">Send us a message and we'll respond within 24 hours.</p>
+        <div style="display: flex; align-items: center;">
+          <span style="color: #0066FF; font-weight: 500;">Open Form</span>
+          <svg style="margin-left: 8px;" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="#0066FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      
+      <!-- Social Media Card -->
+<div style="flex: 1; min-width: 280px; background: #fff; border-radius: 18px; padding: 30px; box-shadow: 0 5px 25px rgba(0,0,0,0.05);">
+  <div style="width: 60px; height: 60px; background: #F0F7FF; border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="#0066FF" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+    </svg>
+  </div>
+  <h3 style="font-size: 1.375rem; font-weight: 600; margin-bottom: 1rem;">Connect With Us</h3>
+  <p style="color: #86868b; margin-bottom: 1.5rem;">Follow us on our social platforms</p>
+  
+  <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;">
+    <!-- Facebook -->
+    <a href="#" style="width: 44px; height: 44px; background: #F5F5F7; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;" 
+       onmouseover="this.style.transform='translateY(-3px)'; this.style.background='#1877F2'" 
+       onmouseout="this.style.transform='translateY(0)'; this.style.background='#F5F5F7'">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 2H15C13.6739 2 12.4021 2.52678 11.4645 3.46447C10.5268 4.40215 10 5.67392 10 7V10H7V14H10V22H14V14H17L18 10H14V7C14 6.73478 14.1054 6.48043 14.2929 6.29289C14.4804 6.10536 14.7348 6 15 6H18V2Z"/>
+      </svg>
+    </a>
+    
+    <!-- X (Twitter) -->
+    <a href="#" style="width: 44px; height: 44px; background: #F5F5F7; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;" 
+       onmouseover="this.style.transform='translateY(-3px)'; this.style.background='#000000'" 
+       onmouseout="this.style.transform='translateY(0)'; this.style.background='#F5F5F7'">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+      </svg>
+    </a>
+    
+    <!-- Instagram -->
+    <a href="#" style="width: 44px; height: 44px; background: #F5F5F7; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; position: relative; overflow: hidden;" 
+       onmouseover="this.querySelector('.insta-gradient').style.opacity='1'; this.querySelector('svg').style.color='white'" 
+       onmouseout="this.querySelector('.insta-gradient').style.opacity='0'; this.querySelector('svg').style.color='black'">
+      <div class="insta-gradient" style="position: absolute; width: 100%; height: 100%; background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); opacity: 0; transition: opacity 0.3s;"></div>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="position: relative; z-index: 1;">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+      </svg>
+    </a>
+    
+    <!-- LinkedIn -->
+    <a href="#" style="width: 44px; height: 44px; background: #F5F5F7; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;" 
+       onmouseover="this.style.transform='translateY(-3px)'; this.style.background='#0077B5'" 
+       onmouseout="this.style.transform='translateY(0)'; this.style.background='#F5F5F7'">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+      </svg>
+    </a>
+    
+    <!-- Reddit -->
+    <a href="#" style="width: 44px; height: 44px; background: #F5F5F7; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;" 
+       onmouseover="this.style.transform='translateY(-3px)'; this.style.background='#FF5700'" 
+       onmouseout="this.style.transform='translateY(0)'; this.style.background='#F5F5F7'">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.561 8 13.25c0 .69.56 1.25 1.25 1.25.69 0 1.25-.56 1.25-1.25 0-.689-.56-1.25-1.25-1.25zm5.5 0c-.689 0-1.25.561-1.25 1.25 0 .69.561 1.25 1.25 1.25.69 0 1.25-.56 1.25-1.25 0-.689-.56-1.25-1.25-1.25zm-5.47 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.12-.07 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.966-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/>
+      </svg>
+    </a>
+    
+    <!-- GitHub -->
+    <a href="#" style="width: 44px; height: 44px; background: #F5F5F7; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;" 
+       onmouseover="this.style.transform='translateY(-3px)'; this.style.background='#181717'" 
+       onmouseout="this.style.transform='translateY(0)'; this.style.background='#F5F5F7'">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+      </svg>
+    </a>
+  </div>
+</div>
+
+  <!-- Email Form Popup -->
+  <div id="emailModal" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s ease;">
+    <div style="background: white; border-radius: 18px; padding: 40px; width: 100%; max-width: 500px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); transform: translateY(20px); transition: transform 0.3s ease; position: relative;">
+      <button id="closeModal" style="position: absolute; top: 20px; right: 20px; background: none; border: none; cursor: pointer; padding: 8px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 6L6 18M6 6L18 18" stroke="#515154" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      
+      <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem;">Send us a message</h3>
+      
+      <form id="contactForm" action="https://formspree.io/f/xrbpabbq" method="POST" style="display: flex; flex-direction: column; gap: 20px;">
+        <div>
+          <label for="name" style="display: block; margin-bottom: 8px; font-weight: 500; color: #515154;">Your Name</label>
+          <input type="text" id="name" name="name" required style="width: 100%; padding: 12px 16px; border: 1px solid #D2D2D7; border-radius: 8px; font-size: 1rem; transition: border 0.2s;">
+        </div>
+        
+        <div>
+          <label for="email" style="display: block; margin-bottom: 8px; font-weight: 500; color: #515154;">Email Address</label>
+          <input type="email" id="email" name="email" required style="width: 100%; padding: 12px 16px; border: 1px solid #D2D2D7; border-radius: 8px; font-size: 1rem; transition: border 0.2s;">
+          <p id="emailError" style="color: #FF3B30; font-size: 0.875rem; margin-top: 4px; display: none;">Please enter a valid email address</p>
+        </div>
+        
+        <div>
+          <label for="message" style="display: block; margin-bottom: 8px; font-weight: 500; color: #515154;">Your Message</label>
+          <textarea id="message" name="message" rows="5" required style="width: 100%; padding: 12px 16px; border: 1px solid #D2D2D7; border-radius: 8px; font-size: 1rem; resize: vertical; min-height: 120px; transition: border 0.2s;"></textarea>
+        </div>
+        
+        <button type="submit" style="background: #0066FF; color: white; border: none; padding: 14px 24px; border-radius: 8px; font-size: 1rem; font-weight: 500; cursor: pointer; transition: background 0.2s;">
+          Send Message
+        </button>
+        <p id="successMessage" style="color: #34C759; text-align: center; margin-top: 20px; font-weight: 500; display: none;">Thank you! Your message has been sent.</p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Modal functionality
+    const emailCard = document.getElementById('emailCard');
+    const emailModal = document.getElementById('emailModal');
+    const closeModal = document.getElementById('closeModal');
+    
+    emailCard.addEventListener('click', () => {
+      emailModal.style.opacity = '1';
+      emailModal.style.visibility = 'visible';
+      document.querySelector('#emailModal > div').style.transform = 'translateY(0)';
+      document.body.style.overflow = 'hidden';
+    });
+    
+    closeModal.addEventListener('click', () => {
+      closeModalFunc();
+    });
+    
+    // Close modal when clicking outside content
+    emailModal.addEventListener('click', (e) => {
+      if (e.target === emailModal) {
+        closeModalFunc();
+      }
+    });
+    
+    // Close modal with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModalFunc();
+      }
+    });
+    
+    function closeModalFunc() {
+      emailModal.style.opacity = '0';
+      emailModal.style.visibility = 'hidden';
+      document.querySelector('#emailModal > div').style.transform = 'translateY(20px)';
+      document.body.style.overflow = 'auto';
+    }
+    
+    // Form validation and submission
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Validate email
+      const emailInput = document.getElementById('email');
+      const emailError = document.getElementById('emailError');
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      
+      if (!emailRegex.test(emailInput.value)) {
+        emailError.style.display = 'block';
+        emailInput.style.borderColor = '#FF3B30';
+        return;
+      } else {
+        emailError.style.display = 'none';
+        emailInput.style.borderColor = '#D2D2D7';
+      }
+      
+      // Submit form via Formspree
+      fetch(this.action, {
+        method: 'POST',
+        body: new FormData(this),
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          document.getElementById('successMessage').style.display = 'block';
+          this.reset();
+          setTimeout(() => {
+            document.getElementById('successMessage').style.display = 'none';
+            closeModalFunc();
+          }, 3000);
+        } else {
+          throw new Error('Form submission failed');
+        }
+      })
+      .catch(error => {
+        alert('There was a problem sending your message. Please try again later.');
+      });
+    });
+
+    // Real-time email validation
+    document.getElementById('email').addEventListener('input', function() {
+      const emailError = document.getElementById('emailError');
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      
+      if (this.value && !emailRegex.test(this.value)) {
+        emailError.style.display = 'block';
+        this.style.borderColor = '#FF3B30';
+      } else {
+        emailError.style.display = 'none';
+        this.style.borderColor = '#D2D2D7';
+      }
+    });
+  </script>
+</section>
+<!-- ======= End Contact Section ======= -->
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Orange Square. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Scrolling text effect
+        window.addEventListener('scroll', () => {
+            const text = document.querySelector('.scale-text');
+            const scrollPosition = window.scrollY;
+            
+            // Adjust scale factor here (0.03 = scaling speed)
+            const scale = 1 + scrollPosition * 0.03;
+            
+            // Apply the scale transformation
+            text.style.transform = `translate(-50%, -50%) scale(${Math.min(scale, 8)})`;
+        });
+    </script>
+</body>
+</html>
