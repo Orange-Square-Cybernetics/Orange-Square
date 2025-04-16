@@ -1,10 +1,25 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
+   <!-- SEO Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Orange Square - Innovating in robotics technology. Explore our projects in bionic arms and advanced robotics solutions.">
+    <meta name="keywords" content="robotics, bionic arm, Orange Square, technology, innovation">
+    <meta name="author" content="Orange Square">
+    <meta property="og:title" content="Orange Square | Robotics Innovation">
+    <meta property="og:description" content="Innovating in robotics technology with projects like the M1 Bionic Arm and QT robotics solutions.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://Orange-Square-Cybernetics.github.io/Orange-Square/">
+    <meta property="og:image" content="https://images.pexels.com/photos/3913025/pexels-photo-3913025.jpeg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="theme-color" content="#FF9500">
+    
     <title>Orange Square</title>
+    
+    <!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="https://img.icons8.com/?size=100&id=ThLUy5oy-CGk&format=png&color=000000">
+    
     <!-- Add Roboto font -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -37,7 +52,6 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            
         }
 
         .logo-container img {
@@ -52,6 +66,7 @@
             color: black;
         }
 
+        /* Navigation Styles */
         nav ul {
             list-style: none;
             padding: 0;
@@ -76,6 +91,40 @@
             text-decoration: underline;
         }
 
+        /* Responsive Navigation for Mobile */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none; /* Hide menu by default */
+                flex-direction: column;
+                gap: 10px;
+                position: absolute;
+                top: 100%; /* Position below the header */
+                left: 0;
+                width: 100%;
+                background-color: white;
+                padding: 1rem;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+
+            nav ul.show {
+                display: flex; /* Show menu when active */
+            }
+
+            nav .menu-toggle {
+                display: block; /* Show toggle button */
+                font-size: 1.5rem;
+                cursor: pointer;
+                background: none;
+                border: none;
+                padding: 0;
+            }
+        }
+
+        @media (min-width: 769px) {
+            nav .menu-toggle {
+                display: none; /* Hide toggle button for larger screens */
+            }
+        }
         /* Hero Section with Scrolling Text Effect */
         .hero {
             height: 100vh;
@@ -146,7 +195,8 @@
         </div>
         <!-- Navigation -->
         <nav>
-            <ul>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <ul id="menu">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#about">About Us</a></li>
@@ -526,6 +576,12 @@
             // Apply the scale transformation
             text.style.transform = `translate(-50%, -50%) scale(${Math.min(scale, 8)})`;
         });
+
+        // Navigation menu toggle functionality
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            menu.classList.toggle('show');
+        }
     </script>
 </body>
 </html>
