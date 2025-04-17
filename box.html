@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>The Birth of Orange</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #000;
+            touch-action: none;
+            font-family: Arial, sans-serif;
+        }
+        #gameContainer {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        canvas {
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+            background: #111;
+        }
+        #ui {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-size: 16px;
+            z-index: 10;
+        }
+        #win-message {
+            display: none;
+            position: absolute;
+            color: orange;
+            font-size: 24px;
+            text-align: center;
+            width: 100%;
+            z-index: 10;
+        }
+        /* Mobile Controls */
+        #controls {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-sizing: border-box;
+            z-index: 10;
+        }
+        #joystick {
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            position: relative;
+        }
+        #joystick-handle {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            position: absolute;
+            top: 30px;
+            left: 30px;
+        }
+        #jump-btn {
+            width: 80px;
+            height: 80px;
+            background: rgba(0, 255, 0, 0.3);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 18px;
+            user-select: none;
+        }
+        @media (min-width: 768px) {
+            #controls { display: none; } /* Hide on desktop */
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas"></canvas>
+        <div id="ui">
+            <p>Red: <span id="red-status">No</span> | Yellow: <span id="yellow-status">No</span> | Orange: <span id="orange-status">No</span></p>
+        </div>
+        <div id="win-message">You Restored ORANGE to the World!</div>
+        <!-- Mobile Controls -->
+        <div id="controls">
+            <div id="joystick"><div id="joystick-handle"></div></div>
+            <div id="jump-btn">JUMP</div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
