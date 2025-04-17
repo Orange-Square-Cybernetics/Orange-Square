@@ -183,6 +183,16 @@
             position: relative;
             z-index: 1; /* Ensure footer stays above the scaling text */
         }
+       .secret-link-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: default; /* No pointer */
+        z-index: 10;
+    }
     </style>
 </head>
 <body>
@@ -193,6 +203,7 @@
                 <img src="logo.png" alt="Orange Square Logo" height="40" width="40">
             </div>
             <h2 class="heading-small">Orange Square</h2>
+           <a href="https://orange-square-cybernetics.github.io/Orange-Square/orange.html" class="secret-link-overlay"></a>
         </div>
         <!-- Navigation -->
         <nav>
