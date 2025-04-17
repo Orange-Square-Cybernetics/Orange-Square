@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orange Question</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        #question-container {
+            max-width: 800px;
+            padding: 20px;
+            z-index: 10;
+        }
+        
+        #question {
+            font-size: 2.5em;
+            font-weight: 600;
+            color: #333;
+            margin: 0 auto;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .orange {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-image: url('https://cdn-icons-png.flaticon.com/128/1728/1728729.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            top: -60px;
+            pointer-events: none;
+            user-select: none;
+        }
+        
+        .special-orange {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background-image: url('https://cdn-icons-png.flaticon.com/128/135/135620.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            top: -60px;
+            cursor: pointer;
+            z-index: 5;
+            filter: drop-shadow(0 0 5px rgba(255,165,0,0.7));
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="question-container">
+        <div id="question"></div>
+    </div>
+    
+    <script>
+        const question = "What came first? The color orange or the orange fruit?";
+        const questionElement = document.getElementById('question');
+        let charIndex = 0;
+        let specialOrangeCreated = false;
+        
+        function typeQuestion() {
+            if (charIndex < question.length) {
+                questionElement.textContent += question.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeQuestion, 50);
+            } else {
+                setTimeout(startOrangeRain, 1000);
+            }
+        }
+        
+        function startOrangeRain() {
+            const orangeRainDuration = 60000;
+            const orangeInterval = setInterval(createOrange, 300);
+            
+            setTimeout(() => {
+                clearInterval(orangeInterval);
+            }, orangeRainDuration);
+        }
+        
+        function createOrange() {
+            // Create either normal orange or special orange
+            let orange;
+            const shouldCreateSpecial = !specialOrangeCreated && Math.random() < 0.05;
+            
+            if (shouldCreateSpecial) {
+                orange = document.createElement('div');
+                orange.className = 'special-orange';
+                orange.onclick = function() {
+                    window.location.href = "https://orange-square-cybernetics.github.io/Orange-Square/box.html"; // Change this URL
+                };
+                specialOrangeCreated = true;
+            } else {
+                orange = document.createElement('div');
+                orange.className = 'orange';
+            }
+            
+            // Random horizontal position
+            const leftPos = Math.random() * (window.innerWidth - 50);
+            orange.style.left = leftPos + 'px';
+            
+            // Random size variation
+            const size = shouldCreateSpecial ? 
+                (50 + Math.random() * 30) : // Special orange is bigger (50-80px)
+                (30 + Math.random() * 40);  // Normal oranges (30-70px)
+            orange.style.width = size + 'px';
+            orange.style.height = size + 'px';
+            
+            // Random rotation
+            const rotation = Math.random() * 360;
+            orange.style.transform = `rotate(${rotation}deg)`;
+            
+            // Random fall duration (2-5 seconds)
+            const fallDuration = shouldCreateSpecial ? 
+                (3 + Math.random() * 2) : // Special orange falls slower (3-5s)
+                (2 + Math.random() * 3);  // Normal oranges (2-5s)
+            orange.style.transition = `top ${fallDuration}s linear, transform ${fallDuration}s linear`;
+            
+            document.body.appendChild(orange);
+            
+            // Trigger the fall
+            setTimeout(() => {
+                orange.style.top = window.innerHeight + 'px';
+                orange.style.transform = `rotate(${rotation + 360}deg)`;
+            }, 10);
+            
+            // Remove orange after it falls
+            setTimeout(() => {
+                if (orange.parentNode) {
+                    orange.remove();
+                }
+            }, fallDuration * 1000 + 100);
+        }
+        
+        window.onload = typeQuestion;
+    </script>
+</body>
+</html>
