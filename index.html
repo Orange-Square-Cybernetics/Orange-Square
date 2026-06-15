@@ -56,6 +56,14 @@
             align-items: center;
             gap: 10px;
         }
+       .logo-link {
+    display: inline-block;
+    line-height: 0; /* Prevents tiny ghost margins under the image */
+    text-decoration: none;
+    position: relative; /* Removes any absolute positioning inherited from old code */
+    width: auto;
+    height: auto;
+}
 
         .logo-container img {
             display: block;
@@ -220,17 +228,16 @@
     <header id="website-header">
         <div class="header-content">
             <div class="logo-container">
-                <img src="logo.png" alt="Orange Square Logo" height="40" width="40">
-               <a href="https://orange-square-cybernetics.github.io/Orange-Square/orange.html" class="secret-link-overlay"></a>
+                <a href="https://orange-square-cybernetics.github.io/Orange-Square/orange.html" class="logo-link">
+                    <img src="logo.png" alt="Orange Square Logo" height="40" width="40">
+                </a>
             </div>
             <h2 class="heading-small">Orange Square</h2>
-           
         </div>
-        <!-- Navigation -->
         <nav>
             <button class="menu-toggle" onclick="toggleMenu()">☰</button>
             <ul id="menu">
-                <li><a href="#home">Shop</a></li>
+                <li><a href="#home">Home</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#about">About Us</a></li>
                 <li><a href="#contact">Contact</a></li>
