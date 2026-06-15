@@ -72,10 +72,9 @@
     </div>
     
     <script>
-        const question = "What came first? The color orange or the orange fruit?";
+        const question = "I wear a bright coat of warm and charm,And blend right in with the rest of the farm.";
         const questionElement = document.getElementById('question');
         let charIndex = 0;
-        let specialOrangeCreated = false;
         
         function typeQuestion() {
             if (charIndex < question.length) {
@@ -97,9 +96,9 @@
         }
         
         function createOrange() {
-            // Create either normal orange or special orange
+            // Create either normal orange or special orange randomly
             let orange;
-            const shouldCreateSpecial = !specialOrangeCreated && Math.random() < 0.05;
+            const shouldCreateSpecial = Math.random() < 0.05;
             
             if (shouldCreateSpecial) {
                 orange = document.createElement('div');
@@ -107,7 +106,6 @@
                 orange.onclick = function() {
                     window.location.href = "https://orange-square-cybernetics.github.io/Orange-Square/box.html"; // Change this URL
                 };
-                specialOrangeCreated = true;
             } else {
                 orange = document.createElement('div');
                 orange.className = 'orange';
