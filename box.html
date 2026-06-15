@@ -1,106 +1,464 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>The Birth of Orange</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>The Orange Saga: An Aesthetic History</title>
     <style>
-        body {
+        /* --- CSS Variables for Theming --- */
+        :root {
+            /* Light Theme (Default) */
+            --bg-main: #F5F5F7;
+            --container-bg: rgba(255, 255, 255, 0.75);
+            --text-main: #1D1D1F;
+            --text-muted: #86868B;
+            --input-bg: rgba(250, 250, 252, 0.8);
+            --btn-bg: #FFFFFF;
+            --btn-border: rgba(0,0,0,0.1);
+            --orange-primary: #FF9500; /* Apple System Orange */
+            --orange-hover: #FF9F0A;
+            --leaf-green: #68B266;
+            --accent-gold: #D4AF37;
+        }
+
+        [data-theme="dark"] {
+            /* Dark Theme */
+            --bg-main: #000000;
+            --container-bg: rgba(28, 28, 30, 0.75);
+            --text-main: #F5F5F7;
+            --text-muted: #A1A1A6;
+            --input-bg: rgba(44, 44, 46, 0.8);
+            --btn-bg: #1C1C1E;
+            --btn-border: rgba(255, 255, 255, 0.15);
+            --orange-primary: #FF9F0A;
+            --orange-hover: #FFB340;
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            overflow: hidden;
-            background: #000;
-            touch-action: none;
-            font-family: Arial, sans-serif;
-        }
-        #gameContainer {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        canvas {
-            max-width: 100%;
-            max-height: 100%;
-            display: block;
-            background: #111;
-        }
-        #ui {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            color: white;
-            font-size: 16px;
-            z-index: 10;
-        }
-        #win-message {
-            display: none;
-            position: absolute;
-            color: orange;
-            font-size: 24px;
-            text-align: center;
-            width: 100%;
-            z-index: 10;
-        }
-        /* Mobile Controls */
-        #controls {
-            position: absolute;
-            bottom: 20px;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            padding: 0 20px;
-            box-sizing: border-box;
-            z-index: 10;
-        }
-        #joystick {
-            width: 100px;
-            height: 100px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            position: relative;
-        }
-        #joystick-handle {
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            position: absolute;
-            top: 30px;
-            left: 30px;
-        }
-        #jump-btn {
-            width: 80px;
-            height: 80px;
-            background: rgba(0, 255, 0, 0.3);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 18px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             user-select: none;
+            -webkit-touch-callout: none;
         }
-        @media (min-width: 768px) {
-            #controls { display: none; } /* Hide on desktop */
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
+
+        /* --- Theme Toggle --- */
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 10;
+            background: var(--container-bg);
+            border: 1px solid var(--btn-border);
+            color: var(--text-main);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.2s, background 0.3s;
+        }
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* --- Animated Background --- */
+        #bg-animation {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(110vh) translateX(100px) rotate(360deg); opacity: 0; }
+        }
+
+        .falling-item {
+            position: absolute;
+            animation: fall linear infinite;
+        }
+
+        .shape-orange {
+            border-radius: 50%;
+            background-color: var(--orange-primary);
+            box-shadow: inset -3px -3px 6px rgba(0,0,0,0.2);
+        }
+
+        .shape-leaf {
+            border-radius: 15px 0 15px 0;
+            background-color: var(--leaf-green);
+        }
+
+        /* --- UI Elements --- */
+        .game-wrapper {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+        }
+
+        .main-container {
+            width: 100%;
+            background: var(--container-bg);
+            padding: 40px;
+            border-radius: 30px;
+            border: 1px solid var(--btn-border);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            overflow: hidden;
+            transition: background 0.5s ease, border-color 0.5s ease;
+        }
+
+        h1, h2 {
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        h1 { font-size: 2.4rem; }
+        h2 { font-size: 1.8rem; }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .highlight-orange { color: var(--orange-primary); font-weight: 600; transition: color 0.3s; }
+        .highlight-gold { color: var(--accent-gold); font-weight: 600; }
+
+        /* --- Buttons --- */
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        button {
+            background-color: var(--btn-bg);
+            color: var(--text-main);
+            border: 1px solid var(--btn-border);
+            padding: 16px 20px;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            outline: none;
+        }
+
+        button:hover:not(:disabled):not(.btn-skip) {
+            background-color: var(--orange-primary);
+            color: #FFF;
+            border-color: var(--orange-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 149, 0, 0.3);
+        }
+
+        button:active:not(:disabled) { transform: translateY(1px) scale(0.98); }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Skip Button specific styling */
+        .btn-skip {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            margin-top: 5px;
+            padding: 10px;
+            font-size: 0.95rem;
+        }
+        .btn-skip:hover { color: var(--text-main); text-decoration: underline; }
+
+        /* --- Form Inputs --- */
+        input {
+            width: 100%;
+            padding: 16px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            border: 1px solid var(--btn-border);
+            background: var(--input-bg);
+            color: var(--text-main);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        input:focus {
+            outline: none;
+            border-color: var(--orange-primary);
+        }
+
+        /* --- Screen Handling --- */
+        .screen {
+            display: none;
+            opacity: 0;
+            transform: scale(0.95);
+            pointer-events: none;
+        }
+        .screen.active {
+            display: block;
+            animation: screenIn 0.5s ease forwards;
+            pointer-events: auto;
+        }
+
+        @keyframes screenIn { to { opacity: 1; transform: scale(1); } }
+
+        .final-orange {
+            font-size: 5rem;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 20px;
+            transition: transform 0.3s;
+        }
+        .final-orange:hover { transform: scale(1.1) rotate(5deg); }
+
     </style>
 </head>
 <body>
-    <div id="gameContainer">
-        <canvas id="gameCanvas"></canvas>
-        <div id="ui">
-            <p>Red: <span id="red-status">No</span> | Yellow: <span id="yellow-status">No</span> | Orange: <span id="orange-status">No</span></p>
-        </div>
-        <div id="win-message">You Restored ORANGE to the World!</div>
-        <!-- Mobile Controls -->
-        <div id="controls">
-            <div id="joystick"><div id="joystick-handle"></div></div>
-            <div id="jump-btn">JUMP</div>
-        </div>
-    </div>
 
-    <script src="game.js"></script>
+<!-- Dark Mode Toggle -->
+<div class="theme-toggle" id="themeBtn" onclick="toggleTheme()" title="Toggle Dark Mode">
+    🌙
+</div>
+
+<!-- Background Animation -->
+<div id="bg-animation"></div>
+
+<div class="game-wrapper">
+    <div class="main-container">
+
+        <!-- SCREEN 0: WELCOME -->
+        <div id="scr-intro" class="screen active">
+            <h1>Okaeri.</h1>
+            <p>Welcome to a gentle exploration of the <span class="highlight-orange">Orange Saga</span>.</p>
+            <p>Discover the aesthetic and curious history of the world's most vibrant fruit.</p>
+            <button onclick="nextScreen('q1')">Begin Journey ➔</button>
+        </div>
+
+        <!-- SCREEN 1: QUESTION 1 -->
+        <div id="q1" class="screen">
+            <h2>Which came first?</h2>
+            <p>In the timeline of existence, was it the luminous <span class="highlight-orange">color</span>, or the sweet <span class="highlight-orange">fruit</span>?</p>
+            <div class="btn-container">
+                <button onclick="nextScreen('c1')">1. The fruit came first</button>
+                <button onclick="nextScreen('c1')">2. The color came first</button>
+            </div>
+        </div>
+
+        <!-- SCREEN 2: CUTSCENE 1 -->
+        <div id="c1" class="screen">
+            <h2>It was the Fruit. 🍊</h2>
+            <p>Long ago, the ancient Sanskrit term <span class="highlight-gold">"nāraṅga"</span> was coined specifically to describe the delicious fruit.</p>
+            <p>Before the fruit arrived in Europe, people simply called the color "yellow-red". The fruit was so influential, it hijacked the language.</p>
+            <button onclick="nextScreen('q2')">Continue Exploration ➔</button>
+        </div>
+
+        <!-- SCREEN 3: QUESTION 2 -->
+        <div id="q2" class="screen">
+            <h2>The Modern Orange:</h2>
+            <p>Is this familiar fruit a pure gift from nature, or a distinct human creation?</p>
+            <div class="btn-container">
+                <button onclick="nextScreen('c2')">1. Nature produced it alone</button>
+                <button onclick="nextScreen('c2')">2. Hoomans cooked it up</button>
+            </div>
+        </div>
+
+        <!-- SCREEN 4: CUTSCENE 2 -->
+        <div id="c2" class="screen">
+            <h2>Indeed, Humans did it. 😤</h2>
+            <p>Ancient humans found wild ancestors of the orange, tasted them, and immediately said:</p>
+            <p style="font-style: italic; color: var(--text-muted);">"Yuck! Them sour!" 😵‍💫</p>
+            <p>Using creativity and patience, we spliced different citrus species (Mandarin and Pomelo) together, and carefully <span class="highlight-orange">cultured</span> the sweet orange we know today.</p>
+            <button onclick="nextScreen('q3')">Final Reflection ➔</button>
+        </div>
+
+        <!-- SCREEN 5: QUESTION 3 -->
+        <div id="q3" class="screen">
+            <h2>Given this history...</h2>
+            <p>What does the noble Orange represent to you now?</p>
+            <div class="btn-container">
+                <button onclick="handleIdk()">1. IDK</button>
+                <button onclick="nextScreen('c3')">2. Human Ingenuity</button>
+                <button disabled>3. (Option Locked)</button>
+            </div>
+        </div>
+
+        <!-- SCREEN 6: FINAL FORM -->
+        <div id="c3" class="screen">
+            <h2>Aesthetic Achieved.</h2>
+            <p>You have officially been awarded the <span class="highlight-gold">Nobel Orange Prize</span> for curiosity.</p>
+            <p>Enter your details to seal your record in the Scroll of Cultured Brains:</p>
+            
+            <input type="text" id="playerName" placeholder="Your Historic Name" required>
+            <input type="email" id="playerEmail" placeholder="Your Scroll Address (Email)" required>
+            
+            <button style="margin-top: 10px; width: 100%;" onclick="processRecord(false)">Seal the Record</button>
+            <button class="btn-skip" onclick="processRecord(true)">Nah, I'm good</button>
+        </div>
+
+        <!-- SCREEN 7: END -->
+        <div id="end" class="screen">
+            <h2>Journey Complete.</h2>
+            <p>Knowledge is now yours to keep.</p>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 15px;">Warm fact: Brown is actually just a very dark shade of orange.</p>
+            <p style="margin-top: 15px;">Tap the Divine Orange to return home 🫶🏼</p>
+            <div class="final-orange" onclick="goHome()">🍊</div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // --- Theme Toggle Logic ---
+    function toggleTheme() {
+        const body = document.body;
+        const btn = document.getElementById('themeBtn');
+        if (body.getAttribute('data-theme') === 'dark') {
+            body.removeAttribute('data-theme');
+            btn.innerText = '🌙';
+        } else {
+            body.setAttribute('data-theme', 'dark');
+            btn.innerText = '☀️';
+        }
+    }
+
+    // --- Setup Animated Background (Oranges & Leaves) ---
+    function createFallingObjects() {
+        const container = document.getElementById('bg-animation');
+        const itemCount = 20;
+
+        for (let i = 0; i < itemCount; i++) {
+            const item = document.createElement('div');
+            
+            // 50/50 chance for orange or leaf
+            const isOrange = Math.random() > 0.5;
+            item.className = `falling-item ${isOrange ? 'shape-orange' : 'shape-leaf'}`;
+            
+            // Randomize size
+            const size = isOrange ? (Math.random() * 15 + 10) : (Math.random() * 10 + 8);
+            item.style.width = size + 'px';
+            item.style.height = size + 'px';
+            
+            // Randomize position and animation properties
+            item.style.left = Math.random() * 100 + 'vw';
+            item.style.animationDuration = Math.random() * 6 + 6 + 's'; // 6-12s fall time
+            item.style.animationDelay = Math.random() * 5 + 's';
+            
+            container.appendChild(item);
+        }
+    }
+
+    // --- Core Navigation ---
+    function nextScreen(targetId) {
+        const current = document.querySelector('.screen.active');
+        if(current) current.classList.remove('active');
+
+        const target = document.getElementById(targetId);
+        target.classList.add('active');
+    }
+
+    // --- Handlers ---
+    function handleIdk() {
+        if (confirm("⚠️ Reflection Reset: Declaring 'IDK' implies a need to re-experience the story. Shall we restart the journey?")) {
+            location.reload(); 
+        }
+    }
+
+    // --- Data Collection & Skip Handler ---
+    function processRecord(isSkip) {
+        if (isSkip) {
+            // User clicked "Nah, I'm good"
+            nextScreen('end');
+            return;
+        }
+
+        const nameInput = document.getElementById('playerName').value.trim();
+        const emailInput = document.getElementById('playerEmail').value.trim();
+
+        if (nameInput === "" || emailInput === "") { 
+            alert("Ah, you missed a spot. Please fill in both blanks."); 
+            return; 
+        }
+
+        // --- 3RD PARTY WEBHOOK INTEGRATION ---
+// Web3Forms API Endpoint
+const webhookUrl = "https://api.web3forms.com/submit"; 
+
+// Prepare the form data payload for Web3Forms
+const formData = new URLSearchParams();
+formData.append("access_key", "e1332ee5-b55c-4077-886c-b975253fda7a");
+formData.append("name", nameInput);
+formData.append("email", emailInput);
+formData.append("source", "Orange Saga Easter Egg"); // Custom tracking tag
+
+// SENDING DATA TO WEB3FORMS
+fetch(webhookUrl, {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Accept": "application/json"
+    },
+    body: formData.toString()
+})
+.then(response => response.json())
+.then(data => {
+    if (data.success) {
+        console.log("Data successfully emailed via Web3Forms!");
+    } else {
+        console.error("Web3Forms rejected submission:", data.message);
+    }
+})
+.catch(error => {
+    console.error("Network error sending data:", error);
+});
+
+console.log(`Record prepared for submission: ${nameInput} - ${emailInput}`);
+nextScreen('end');
+    }
+
+    function goHome() { 
+        window.location.href = 'https://orange-square-cybernetics.github.io/Orange-Square/'; 
+    }
+
+    // --- Initialize on Load ---
+    window.onload = function() {
+        createFallingObjects();
+        
+        // Auto-detect system dark mode preference
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.body.setAttribute('data-theme', 'dark');
+            document.getElementById('themeBtn').innerText = '☀️';
+        }
+    };
+</script>
+
 </body>
 </html>
