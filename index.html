@@ -128,102 +128,7 @@
                 display: none; /* Hide toggle button for larger screens */
             }
         }
-        
-Conversation with Gemini
-/* Hero Section with Scrolling Text Effect */
-
-        .hero {
-
-            height: 100vh;
-
-            background: url('robotics_background.jpg') no-repeat center center fixed;
-
-            background-size: cover;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            text-align: center;
-
-            color: #fff;
-
-            position: relative;
-
-        }
-
-That is a solid, classic setup for a full-screen hero section! The fixed background attachment gives it that nice, subtle parallax depth when users start scrolling down.
-
-Since your comment mentions a "Scrolling Text Effect," the current CSS handles the background beautifully, but we need to add the actual text animation or behavioral styling to bring that effect to life.
-
-Depending on what kind of scrolling text effect you are going for, here are two popular ways to implement it:
-
-Option 1: The Infinite Horizontal Marquee (Modern Tech Look)
-If you want text that continuously moves across the screen horizontally (like a ticker tape), you can pair your hero styles with this:
-
-HTML
-<section class="hero">
-    <div class="marquee">
-        <div class="marquee-content">
-            ROBOTICS • INNOVATION • AI • THE FUTURE • 
-        </div>
-        <div class="marquee-content" aria-hidden="true">
-            ROBOTICS • INNOVATION • AI • THE FUTURE • 
-        </div>
-    </div>
-</section>
-CSS
-/* Add this to your existing CSS */
-.marquee {
-    display: flex;
-    overflow: hidden;
-    user-select: none;
-    gap: 2rem;
-    width: 100%;
-}
-
-.marquee-content {
-    flex-shrink: 0;
-    display: flex;
-    justify-content: space-around;
-    min-width: 100%;
-    gap: 2rem;
-    font-size: 4rem;
-    font-weight: 800;
-    letter-spacing: 2px;
-    animation: scroll-text 15s linear infinite;
-}
-
-@keyframes scroll-text {
-    from { transform: translateX(0%); }
-    to { transform: translateX(-100%); }
-}
-Option 2: Pure CSS Fade-Out on Scroll (Parallax Text)
-If you want the text to elegantly fade out or move at a different speed as the user scrolls down the page, you can achieve this using modern CSS animation-timeline:
-
-HTML
-<section class="hero">
-    <div class="scroll-fade-text">
-        <h1>Welcome to the Future</h1>
-        <p>Exploring the next generation of robotics.</p>
-    </div>
-</section>
-CSS
-/* Add this to your existing CSS */
-.scroll-fade-text {
-    animation: fade-and-scale linear both;
-    animation-timeline: scroll(root);
-    animation-range: exit-crossing;
-}
-
-@keyframes fade-and-scale {
-    to {
-        opacity: 0;
-        transform: translateY(-50px) scale(0.9);
-    }
-}
+      
 /* Hero Section with Scrolling/Expanding Text Effect */
 .hero {
     height: 100vh;
@@ -324,7 +229,7 @@ CSS
         <nav>
             <button class="menu-toggle" onclick="toggleMenu()">☰</button>
             <ul id="menu">
-                <li><a href="#home">Home</a></li>
+                <li><a href="#home">Shop</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#about">About Us</a></li>
                 <li><a href="#contact">Contact</a></li>
