@@ -30,6 +30,9 @@
             -moz-user-select: none;
             -ms-user-select: none;     /* IE 10 and IE 11 */
             user-select: none;         /* Standard syntax */
+
+            /* Makes the container box click-through so oranges behind it can be clicked */
+            pointer-events: none; 
         }
         
         #question {
@@ -40,6 +43,9 @@
             min-height: 120px;
             display: flex;
             align-items: center;
+
+            /* Restores normal pointer interaction specifically for the text if needed */
+            pointer-events: auto; 
         }
         
         .orange {
