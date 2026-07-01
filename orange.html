@@ -2,211 +2,95 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Orange Question</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        /* CSS Variables for easy theming */
-        :root {
-            --nav-bg: rgba(255, 255, 255, 0.9);
-            --text-dark: #333;
-            --orange-glow: rgba(255, 165, 0, 0.7);
-        }
-
-        /* Reset & Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
             font-family: 'Poppins', sans-serif;
             text-align: center;
             background-color: #f5f5f5;
-            overflow: hidden; /* Prevents scrollbars from falling oranges */
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            position: relative;
         }
-
-        /* --- Animated Navigation Menu --- */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: var(--nav-bg);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            z-index: 100;
-            padding: 15px 20px;
-        }
-
-        .nav-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-        }
-
-        .nav-menu {
-            list-style: none;
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav-menu li {
-            position: relative;
-        }
-
-        .nav-menu a {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 600;
-            font-size: 1.1em;
-            padding: 5px 10px;
-            transition: color 0.3s ease;
-        }
-
-        /* Hover Animation for Nav Links */
-        .nav-menu a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 50%;
-            background-color: #ffa500;
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-
-        .nav-menu a:hover::after {
-            width: 100%;
-        }
-
-        .nav-menu a:hover {
-            color: #ffa500;
-        }
-
-        /* Mobile Dropdown (Hamburger logic can be added, but keeping it responsive via wrapping) */
-        @media (max-width: 600px) {
-            .nav-menu {
-                gap: 15px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            .nav-menu a {
-                font-size: 0.9em;
-            }
-            #question {
-                font-size: 1.8em !important; /* Smaller text on mobile */
-            }
-        }
-
-        /* --- Question Container --- */
+        
         #question-container {
             max-width: 800px;
             padding: 20px;
             z-index: 10;
-            user-select: none;
-            pointer-events: none; /* Lets you click oranges behind it */
-            margin-top: 60px; /* Offset for navbar */
+            
+            /* Prevents text selection across all major browsers */
+            -webkit-user-select: none; /* Safari */
+            -moz-user-select: none;
+            -ms-user-select: none;     /* IE 10 and IE 11 */
+            user-select: none;         /* Standard syntax */
+
+            /* Makes the container box click-through so oranges behind it can be clicked */
+            pointer-events: none; 
         }
         
         #question {
             font-size: 2.5em;
             font-weight: 600;
-            color: var(--text-dark);
+            color: #333;
             margin: 0 auto;
             min-height: 120px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            pointer-events: auto;
+
+            /* Restores normal pointer interaction specifically for the text if needed */
+            pointer-events: auto; 
         }
         
-        /* --- Orange Animations --- */
-        #orange-layer {
+        .orange {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none; /* Ensure container doesn't block clicks */
-            z-index: 1;
-        }
-
-        .base-orange {
-            position: absolute;
-            top: -100px; /* Start securely above the screen */
+            width: 50px;
+            height: 50px;
+            background-image: url('orange1.png');
             background-size: contain;
             background-repeat: no-repeat;
-            background-position: center;
-        }
-
-        .orange {
-            background-image: url('orange1.png');
+            top: -60px;
             pointer-events: none;
             user-select: none;
         }
         
         .special-orange {
+            position: absolute;
+            width: 60px;
+            height: 60px;
             background-image: url('orange.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            top: -60px;
             cursor: pointer;
             z-index: 5;
-            pointer-events: auto; /* Re-enable clicks for the special one */
-            filter: drop-shadow(0 0 8px var(--orange-glow));
-            transition: transform 0.2s ease;
+            filter: drop-shadow(0 0 5px rgba(255,165,0,0.7));
         }
-
-        .special-orange:hover {
-            transform: scale(1.1) !important;
-        }
-
-        /* Hardware-accelerated CSS animation for smooth falling */
-        @keyframes fallAndRotate {
-            0% {
-                transform: translateY(0) rotate(0deg);
-            }
-            100% {
-                transform: translateY(120vh) rotate(360deg);
-            }
+        
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
-
-    <nav>
-        <div class="nav-container">
-            <ul class="nav-menu">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#project">Project</a></li>
-                <li><a href="#about">About Us</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
-
     <div id="question-container">
         <div id="question"></div>
     </div>
     
-    <div id="orange-layer"></div>
-
     <script>
-        const questionText = "I wear a bright coat of warm and charm, And blend right in with the rest of the farm.";
+        const question = "I wear a bright coat of warm and charm, And blend right in with the rest of the farm.";
         const questionElement = document.getElementById('question');
-        const orangeLayer = document.getElementById('orange-layer');
         let charIndex = 0;
         
-        // Typing Effect
         function typeQuestion() {
-            if (charIndex < questionText.length) {
-                questionElement.textContent += questionText.charAt(charIndex);
+            if (charIndex < question.length) {
+                questionElement.textContent += question.charAt(charIndex);
                 charIndex++;
                 setTimeout(typeQuestion, 50);
             } else {
@@ -215,58 +99,67 @@
         }
         
         function startOrangeRain() {
-            const orangeRainDuration = 60000; // 60 seconds
+            const orangeRainDuration = 60000;
             const orangeInterval = setInterval(createOrange, 300);
             
-            // Stop generating oranges after duration
             setTimeout(() => {
                 clearInterval(orangeInterval);
             }, orangeRainDuration);
         }
         
         function createOrange() {
-            const shouldCreateSpecial = Math.random() < 0.05; // 5% chance
-            const orange = document.createElement('div');
+            // Create either normal orange or special orange randomly
+            let orange;
+            const shouldCreateSpecial = Math.random() < 0.05;
             
             if (shouldCreateSpecial) {
-                orange.className = 'base-orange special-orange';
-                // Using touchstart alongside click ensures it registers immediately on mobile
-                const navigateToBox = () => {
-                    window.location.href = "https://orange-square-cybernetics.github.io/Orange-Square/box.html";
+                orange = document.createElement('div');
+                orange.className = 'special-orange';
+                orange.onclick = function() {
+                    window.location.href = "https://orange-square-cybernetics.github.io/Orange-Square/box.html"; // Change this URL
                 };
-                orange.addEventListener('click', navigateToBox);
-                orange.addEventListener('touchstart', (e) => {
-                    e.preventDefault(); // Prevents double-firing with click
-                    navigateToBox();
-                });
             } else {
-                orange.className = 'base-orange orange';
+                orange = document.createElement('div');
+                orange.className = 'orange';
             }
             
-            // Randomize styling
-            const size = shouldCreateSpecial ? (50 + Math.random() * 30) : (30 + Math.random() * 40);
-            const leftPos = Math.random() * 90; // Use viewport width percentage (vw) to avoid horizontal overflow
-            const fallDuration = shouldCreateSpecial ? (4 + Math.random() * 3) : (3 + Math.random() * 4);
-            const initialRotation = Math.random() * 360;
+            // Random horizontal position
+            const leftPos = Math.random() * (window.innerWidth - 50);
+            orange.style.left = leftPos + 'px';
             
-            // Apply styles
-            orange.style.width = `${size}px`;
-            orange.style.height = `${size}px`;
-            orange.style.left = `${leftPos}vw`;
+            // Random size variation
+            const size = shouldCreateSpecial ? 
+                (50 + Math.random() * 30) : // Special orange is bigger (50-80px)
+                (30 + Math.random() * 40);  // Normal oranges (30-70px)
+            orange.style.width = size + 'px';
+            orange.style.height = size + 'px';
             
-            // Apply CSS animation
-            orange.style.animation = `fallAndRotate ${fallDuration}s linear forwards`;
+            // Random rotation
+            const rotation = Math.random() * 360;
+            orange.style.transform = `rotate(${rotation}deg)`;
             
-            // Add to DOM
-            orangeLayer.appendChild(orange);
+            // Random fall duration (2-5 seconds)
+            const fallDuration = shouldCreateSpecial ? 
+                (3 + Math.random() * 2) : // Special orange falls slower (3-5s)
+                (2 + Math.random() * 3);  // Normal oranges (2-5s)
+            orange.style.transition = `top ${fallDuration}s linear, transform ${fallDuration}s linear`;
             
-            // Clean up the DOM element automatically once the CSS animation finishes
-            orange.addEventListener('animationend', () => {
-                orange.remove();
-            });
+            document.body.appendChild(orange);
+            
+            // Trigger the fall
+            setTimeout(() => {
+                orange.style.top = window.innerHeight + 'px';
+                orange.style.transform = `rotate(${rotation + 360}deg)`;
+            }, 10);
+            
+            // Remove orange after it falls
+            setTimeout(() => {
+                if (orange.parentNode) {
+                    orange.remove();
+                }
+            }, fallDuration * 1000 + 100);
         }
         
-        // Initialize
         window.onload = typeQuestion;
     </script>
 </body>
