@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Archive Hub</title>
+    
+    <!-- Importing Google Fonts for Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+
+    <style>
+        /* -- Global Variables & Setup -- */
+        :root {
+            --text-main: #1d1d1f;
+            --text-muted: #515154;
+            --blue-accent: #0071e3;
+            --blue-hover: #0077ED;
+            --glass-bg: rgba(255, 255, 255, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.4);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-main);
+            /* Soft, colorful, animated background */
+            background: linear-gradient(-45deg, #f5e6e8, #e3eeff, #ffffff, #fbf0e6);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* -- Navigation Bar -- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .logo-container svg { width: 28px; height: 28px; }
+
+        nav {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover { color: var(--blue-accent); }
+
+
+        /* -- Dark Mode Variables -- */
+body.dark-mode {
+    --text-main: #f5f5f7;
+    --text-muted: #a1a1a6;
+    --glass-bg: rgba(20, 20, 22, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    /* Darker, moody animated background */
+    background: linear-gradient(-45deg, #1a1a1d, #0d1b2a, #1b263b, #151515);
+    background-size: 400% 400%;
+}
+
+body.dark-mode header {
+    background: rgba(10, 10, 12, 0.4);
+}
+
+/* Smooth transition for the background */
+body {
+    transition: background 0.5s ease, color 0.5s ease;
+}
+
+        /* From Uiverse.io by EddyBel */ 
+/* The switch - the box around the slider */
+.switch {
+  font-size: 17px;
+  position: relative;
+  display: inline-block;
+  width: 3.5em;
+  height: 2em;
+  transform-style: preserve-3d;
+  perspective: 500px;
+  animation: toggle__animation 3s infinite;
+}
+
+.switch::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  filter: blur(20px);
+  z-index: -1;
+  border-radius: 50px;
+  background-color: #d8ff99;
+  background-image: radial-gradient(at 21% 46%, hsla(183,65%,60%,1) 0px, transparent 50%),
+radial-gradient(at 23% 25%, hsla(359,74%,70%,1) 0px, transparent 50%),
+radial-gradient(at 20% 1%, hsla(267,83%,75%,1) 0px, transparent 50%),
+radial-gradient(at 86% 87%, hsla(204,69%,68%,1) 0px, transparent 50%),
+radial-gradient(at 99% 41%, hsla(171,72%,77%,1) 0px, transparent 50%),
+radial-gradient(at 55% 24%, hsla(138,60%,62%,1) 0px, transparent 50%);
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #fdfefedc;
+  transition: .4s;
+  border-radius: 30px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1.4em;
+  width: 1.4em;
+  left: 0.3em;
+  bottom: 0.35em;
+  transition: .4s;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -10px 10px 0px inset,
+     rgba(0, 0, 0, 0.09) 0px -1px 15px -8px;
+  background-color: #ff99fd;
+  background-image: radial-gradient(at 81% 39%, hsla(327,79%,79%,1) 0px, transparent 50%),
+  radial-gradient(at 11% 72%, hsla(264,64%,79%,1) 0px, transparent 50%),
+  radial-gradient(at 23% 20%, hsla(75,98%,71%,1) 0px, transparent 50%);
+}
+
+.input__check:checked + .slider {
+  background-color: #17202A;
+}
+
+.input__check:checked + .slider:before {
+  transform: translateX(1.5em);
+}
+
+@keyframes toggle__animation {
+  0%, 100% {
+    transform: translateY(-10px) rotateX(15deg) rotateY(-20deg);
+  }
+
+  50% {
+    transform: translateY(0px) rotateX(15deg) rotateY(-20deg);
+  }
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #fdfefedc;
+  transition: .4s;
+  border-radius: 30px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1.4em;
+  width: 1.4em;
+  left: 0.3em;
+  bottom: 0.35em;
+  transition: .4s;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -10px 10px 0px inset,
+     rgba(0, 0, 0, 0.09) 0px -1px 15px -8px;
+  background-color: #ff99fd;
+  background-image: radial-gradient(at 81% 39%, hsla(327,79%,79%,1) 0px, transparent 50%),
+  radial-gradient(at 11% 72%, hsla(264,64%,79%,1) 0px, transparent 50%),
+  radial-gradient(at 23% 20%, hsla(75,98%,71%,1) 0px, transparent 50%);
+}
+
+.input__check:checked + .slider {
+  background-color: #17202A;
+}
+
+.input__check:checked + .slider:before {
+  transform: translateX(1.5em);
+}
+
+@keyframes toggle__animation {
+  0%, 100% {
+    transform: translateY(-10px) rotateX(15deg) rotateY(-20deg);
+  }
+
+  50% {
+    transform: translateY(0px) rotateX(15deg) rotateY(-20deg);
+  }
+}
+
+        /* -- Hero Section -- */
+        .hero {
+            text-align: center;
+            padding: 8rem 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            margin: 0 0 1.5rem 0;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin: 0 auto 3rem auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.2s ease;
+        }
+
+        .btn:active { transform: scale(0.96); }
+
+        .btn-primary {
+            background: var(--blue-accent);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: var(--blue-hover);
+            box-shadow: 0 4px 14px rgba(0, 113, 227, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid rgba(0,0,0,0.2);
+        }
+        
+        .btn-secondary:hover { background: rgba(0,0,0,0.03); }
+
+        /* -- Game Library Grid -- */
+        .library-section {
+            padding: 4rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        /* Apple-esque Glassmorphic Cards */
+        .game-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            text-decoration: none;
+            color: inherit;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .game-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+        }
+
+        /* Image Placeholder - 16:9 Aspect Ratio */
+        .card-thumbnail {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: rgba(0,0,0,0.03);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Style for when you actually add the <img> tag inside */
+        .card-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .game-card:hover .card-thumbnail img {
+            transform: scale(1.05);
+        }
+
+        .placeholder-text {
+            color: #999;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .card-info { padding: 1.5rem; }
+
+        .card-title {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .card-category {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* -- Scroll Animations -- */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* -- Search Box -- */
+.search-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+}
+
+.InputContainer {
+  width: 250px; /* Made slightly wider for better usability */
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom,rgb(227, 213, 255),rgb(255, 231, 231));
+  border-radius: 30px;
+  overflow: hidden;
+  cursor: text;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.075);
+}
+
+.input {
+  width: 240px;
+  height: 40px;
+  border: none;
+  outline: none;
+  caret-color: rgb(255, 81, 0);
+  background-color: rgb(255, 255, 255);
+  border-radius: 30px;
+  padding-left: 15px;
+  letter-spacing: 0.8px;
+  color: rgb(19, 19, 19);
+  font-size: 14px;
+}
+
+body.dark-mode .input {
+    background-color: #2a2a2c;
+    color: #ffffff;
+}
+
+body.dark-mode .InputContainer {
+    background: linear-gradient(to bottom, #3a3a3c, #1c1c1e);
+}
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            nav { display: none; } /* Hide nav on mobile for simplicity */
+            .game-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="logo-container">
+            <!-- Simple SVG Box Icon mimicking the image -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+            Game Archive Hub
+        </div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">About the Archive</a>
+            <a href="#">Contact Us</a>
+        </nav>
+        <label class="switch">
+    <input type="checkbox" class="input__check" id="theme-toggle">
+    <span class="slider"></span>
+</label>
+    </header>
+
+    <!-- Hero Section based on 1000035919.jpg -->
+    <main>
+        <section class="hero fade-up">
+            <h1>Archive of Play</h1>
+            <p>A meticulously curated digital preservation of gaming history. Explore a premium library of architectural masterpieces and gaming legacies that defined generations.</p>
+            <div class="hero-buttons">
+                <a href="#library" class="btn btn-primary">Browse Archive</a>
+            </div>
+        </section>
+
+        <!-- Dynamic Game Library Grid -->
+        <section id="library" class="library-section">
+          <div class="search-wrapper fade-up">
+    <div class="InputContainer">
+        <input type="text" id="gameSearch" class="input" placeholder="Search games...">
+    </div>
+</div>
+            <div class="game-grid">
+                
+                <!-- GAME BOX 1 -->
+                <!-- EDIT THE HREF LINK HERE -->
+                <a href="YOUR_GAME_PAGE_LINK_HERE.html" class="game-card fade-up">
+                    <div class="card-thumbnail">
+                        <!-- REPLACE THE DIV BELOW WITH YOUR IMAGE TAG: <img src="your-thumbnail.jpg" alt="Game Title"> -->
+                        <img src="https://wallpapercave.com/wp/wp12026681.jpg" alt="Game Title">
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Wordmon</h3>
+                        <p class="card-category">QUIZ • Wordle</p>
+                    </div>
+                </a>
+
+                <!-- GAME BOX 2 -->
+                <a href="YOUR_GAME_PAGE_LINK_HERE.html" class="game-card fade-up">
+                    <div class="card-thumbnail">
+                        <div class="placeholder-text">Thumbnail Size: 16:9</div>
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Game Title 2</h3>
+                        <p class="card-category">QUIZ • Wordle</p>
+                    </div>
+                </a>
+
+                <!-- GAME BOX 3 -->
+                <a href="YOUR_GAME_PAGE_LINK_HERE.html" class="game-card fade-up">
+                    <div class="card-thumbnail">
+                        <div class="placeholder-text">Thumbnail Size: 16:9</div>
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Game Title 3</h3>
+                        <p class="card-category">Puzzle • Strategy</p>
+                    </div>
+                </a>
+
+                 <!-- GAME BOX 4 -->
+                 <a href="YOUR_GAME_PAGE_LINK_HERE.html" class="game-card fade-up">
+                    <div class="card-thumbnail">
+                        <div class="placeholder-text">Thumbnail Size: 16:9</div>
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Game Title 4</h3>
+                        <p class="card-category">Racing • Simulator</p>
+                    </div>
+                </a>
+
+                 <!-- GAME BOX 5 -->
+                 <a href="YOUR_GAME_PAGE_LINK_HERE.html" class="game-card fade-up">
+                    <div class="card-thumbnail">
+                        <div class="placeholder-text">Thumbnail Size: 16:9</div>
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Game Title 5</h3>
+                        <p class="card-category">RPG • Classic</p>
+                    </div>
+                </a>
+                
+                 <!-- GAME BOX 6 -->
+                 <a href="YOUR_GAME_PAGE_LINK_HERE.html" class="game-card fade-up">
+                    <div class="card-thumbnail">
+                        <div class="placeholder-text">Thumbnail Size: 16:9</div>
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Game Title 6</h3>
+                        <p class="card-category">Indie • Masterpiece</p>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Javascript for Scroll Animations -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        // Optional: Stop observing once faded in
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, observerOptions);
+
+            // Select all elements with the fade-up class and observe them
+            document.querySelectorAll('.fade-up').forEach((el) => {
+                observer.observe(el);
+            });
+        });
+    </script>
+    
+    <script>
+    const themeToggle = document.getElementById('theme-toggle');
+
+    themeToggle.addEventListener('change', () => {
+        if (themeToggle.checked) {
+            document.body.classList.add('dark-mode');
+        } else {
+            document.body.classList.remove('dark-mode');
+        }
+    });
+</script>
+<script>
+    // Search Functionality
+    const searchInput = document.getElementById('gameSearch');
+    const gameCards = document.querySelectorAll('.game-card');
+
+    searchInput.addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+
+        gameCards.forEach(card => {
+            // Grab the text from the title and category of each card
+            const title = card.querySelector('.card-title').textContent.toLowerCase();
+            const category = card.querySelector('.card-category').textContent.toLowerCase();
+            
+            // If the search matches the title or category, show it. Otherwise, hide it.
+            if (title.includes(searchTerm) || category.includes(searchTerm)) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
