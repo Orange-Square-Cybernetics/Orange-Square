@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
@@ -20,10 +21,30 @@
     }
   </script>
   <style>
+   <style>
     @keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
     @keyframes shake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-5px); } 40%, 80% { transform: translateX(5px); } }
     .tile-pop { animation: pop 0.1s ease-in-out; }
     .shake { animation: shake 0.4s; }
+
+    /* Infinity Loop Animation */
+    #outline {
+      stroke-dasharray: 2.42777px, 242.77666px;
+      stroke-dashoffset: 0;
+      -webkit-animation: anim 1.6s linear infinite;
+      animation: anim 1.6s linear infinite;
+    }
+    @-webkit-keyframes anim {
+      12.5% { stroke-dasharray: 33.98873px, 242.77666px; stroke-dashoffset: -26.70543px; }
+      43.75% { stroke-dasharray: 84.97183px, 242.77666px; stroke-dashoffset: -84.97183px; }
+      100% { stroke-dasharray: 2.42777px, 242.77666px; stroke-dashoffset: -240.34889px; }
+    }
+    @keyframes anim {
+      12.5% { stroke-dasharray: 33.98873px, 242.77666px; stroke-dashoffset: -26.70543px; }
+      43.75% { stroke-dasharray: 84.97183px, 242.77666px; stroke-dashoffset: -84.97183px; }
+      100% { stroke-dasharray: 2.42777px, 242.77666px; stroke-dashoffset: -240.34889px; }
+    }
+  </style>
   </style>
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300 font-sans h-screen flex flex-col items-center select-none overflow-x-hidden">
@@ -330,8 +351,12 @@
       <button id="openMenuBtn" class="p-2 text-gray-600 dark:text-gray-300 hover:text-orange-500 transition-colors">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
       </button>
-      <button id="freePlayToggleBtn" onclick="toggleFreePlay()" class="p-2 text-gray-600 dark:text-gray-300 hover:text-orange-500 transition-colors" title="Toggle Free Play">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      <button id="freePlayToggleBtn" onclick="toggleFreePlay()" class="ml-auto p-0 text-orange-600 dark:text-green-300 hover:text-orange-500 transition-colors flex items-center justify-center" title="Toggle Free Play">
+        <!-- Animated Infinity Symbol -->
+        <svg class="w-15 h-9 -ml-5" preserveAspectRatio="xMidYMid meet" viewBox="0 0 187.3 93.7">
+          <path d="M93.9,46.4c9.3,9.5,13.8,17.9,23.5,17.9s17.5-7.8,17.5-17.5s-7.8-17.6-17.5-17.5c-9.7,0.1-13.3,7.2-22.1,17.1 c-8.9,8.8-15.7,17.9-25.4,17.9s-17.5-7.8-17.5-17.5s7.8-17.5,17.5-17.5S86.2,38.6,93.9,46.4z" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="8" fill="none" id="outline" stroke="currentColor"></path>
+          <path d="M93.9,46.4c9.3,9.5,13.8,17.9,23.5,17.9s17.5-7.8,17.5-17.5s-7.8-17.6-17.5-17.5c-9.7,0.1-13.3,7.2-22.1,17.1 c-8.9,8.8-15.7,17.9-25.4,17.9s-17.5-7.8-17.5-17.5s7.8-17.5,17.5-17.5S86.2,38.6,93.9,46.4z" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="8" stroke="currentColor" fill="none" opacity="0.1" id="outline-bg"></path>
+        </svg>
       </button>
     </div>
     
@@ -429,41 +454,59 @@
     window.customAlert = (msg, title="Notice") => window.customDialog(msg, title, "alert", "OK");
     window.customConfirm = (msg, confirmText="Yes", cancelText="No", confirmColor="bg-red-500", title="Confirm", abortText=null) => window.customDialog(msg, title, "confirm", confirmText, cancelText, confirmColor, abortText);
 
-    // --- DICTIONARY API FETCH ---
+    // --- DICTIONARY & DAILY WORD SETUP ---
     let validWords = new Set();
     let validWordsArray = [];
+    let TARGET_WORD = "";
+    let TARGET_HINT = "Loading hint...";
+
     async function loadDictionary() {
       try {
+        // 1. Fetch the massive 12,000+ word dictionary
         const response = await fetch('https://raw.githubusercontent.com/tabatkins/wordle-list/main/words');
         const text = await response.text();
-        validWordsArray = text.split('\n').map(word => word.trim().toUpperCase());
+        // Keep only 5 letter words
+        validWordsArray = text.split('\n').map(word => word.trim().toUpperCase()).filter(w => w.length === 5);
         validWords = new Set(validWordsArray);
-      } catch (error) { console.error("Failed to load dictionary:", error); }
+
+        // 2. Daily Seeded Word Selection
+        const todayObj = new Date();
+        const dateSeed = todayObj.getFullYear() * 10000 + (todayObj.getMonth() + 1) * 100 + todayObj.getDate();
+        
+        // A prime number multiplier ensures a pseudo-random jump across the 12,000 words.
+        // It guarantees no repeated words until all ~12,000 have been used (takes ~35 years).
+        const primeMultiplier = 7919; 
+        const wordIndex = (dateSeed * primeMultiplier) % validWordsArray.length;
+        TARGET_WORD = validWordsArray[wordIndex];
+
+        // 3. Dynamically fetch the hint from a free Dictionary API
+        try {
+          const dictRes = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${TARGET_WORD}`);
+          const dictData = await dictRes.json();
+          if (dictData && dictData[0] && dictData[0].meanings[0] && dictData[0].meanings[0].definitions[0]) {
+              TARGET_HINT = dictData[0].meanings[0].definitions[0].definition;
+          } else {
+              TARGET_HINT = "A very tricky word. No dictionary definition found!";
+          }
+        } catch(e) {
+          TARGET_HINT = "Could not fetch hint today. You are on your own!";
+        }
+
+        // 4. Safely load the game state ONLY after the word is ready
+        loadGameState();
+
+      } catch (error) { 
+        console.error("Failed to load dictionary:", error); 
+      }
     }
-    loadDictionary();
 
     function isValidWord(word) {
       if (validWords.size === 0) return true; 
       return validWords.has(word.toUpperCase());
     }
 
-    // --- DAILY TARGET WORD SETUP ---
-    const wordDatabase = [
-      { word: "PROXY", hint: "A substitute or authorized agent." },
-      { word: "BANAL", hint: "So lacking in originality as to be obvious and boring." },
-      { word: "SNOUT", hint: "The projecting nose and mouth of an animal." },
-      { word: "TACIT", hint: "Understood or implied without being stated aloud." },
-      { word: "EPOCH", hint: "A distinct, defining period of time in history." },
-      { word: "CYNIC", hint: "Someone who believes people are motivated purely by self-interest." },
-      { word: "GAUNT", hint: "Lean and haggard, usually from hunger or age." },
-      { word: "SWOON", hint: "To faint from extreme emotion." }
-    ];
-
-    const todayObj = new Date();
-    const dateSeed = todayObj.getFullYear() * 10000 + (todayObj.getMonth() + 1) * 100 + todayObj.getDate();
-    const dailyData = wordDatabase[dateSeed % wordDatabase.length];
-    const TARGET_WORD = dailyData.word;
-    const TARGET_HINT = dailyData.hint;
+    // Call it to start the engine
+    loadDictionary();
 
     const WORD_LENGTH = 5;
     const MAX_GUESSES = 6;
@@ -471,6 +514,7 @@
     let currentRow = 0;
     let isGameOver = false;
     let hintUsed = false;
+    window.lockGame = function() { isGameOver = true; }; // Allows Firebase to lock the board
 
     // --- FREE PLAY VARIABLES ---
     let isFreePlayMode = false;
@@ -781,9 +825,14 @@
       document.getElementById("mainTitle").innerText = "WordMon";
       document.getElementById("adContainer").classList.remove("hidden");
       
-      // Restore the button back to the standard Play icon
-      document.getElementById("freePlayToggleBtn").innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
-      
+      // Restore the button back to the animated infinity symbol
+      document.getElementById("freePlayToggleBtn").innerHTML = `
+        <svg class="w-15 h-9 -ml-5" preserveAspectRatio="xMidYMid meet" viewBox="0 0 187.3 93.7">
+          <path d="M93.9,46.4c9.3,9.5,13.8,17.9,23.5,17.9s17.5-7.8,17.5-17.5s-7.8-17.6-17.5-17.5c-9.7,0.1-13.3,7.2-22.1,17.1 c-8.9,8.8-15.7,17.9-25.4,17.9s-17.5-7.8-17.5-17.5s7.8-17.5,17.5-17.5S86.2,38.6,93.9,46.4z" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="8" fill="none" id="outline" stroke="currentColor"></path>
+          <path d="M93.9,46.4c9.3,9.5,13.8,17.9,23.5,17.9s17.5-7.8,17.5-17.5s-7.8-17.6-17.5-17.5c-9.7,0.1-13.3,7.2-22.1,17.1 c-8.9,8.8-15.7,17.9-25.4,17.9s-17.5-7.8-17.5-17.5s7.8-17.5,17.5-17.5S86.2,38.6,93.9,46.4z" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="8" stroke="currentColor" fill="none" opacity="0.1" id="outline-bg"></path>
+        </svg>
+      `;
+
       resetBoard();
       loadGameState(); 
     };
@@ -821,7 +870,7 @@
       }
     }
     
-    setTimeout(loadGameState, 200);
+    
   </script>
 
   <script type="module">
@@ -850,7 +899,7 @@
     let currentUser = null;
 
     // --- 1. AUTHENTICATION LISTENER ---
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       const authMenuBtn = document.getElementById("authMenuBtn");
       const loginSection = document.getElementById("modalLoginSection");
 
@@ -871,9 +920,35 @@
           authMenuBtn.onclick = window.openProfileModal; 
         }
 
-        // OFFLINE SYNC: If they won/lost the game BEFORE logging in, sync it now!
+        // OFFLINE SYNC: If they won/lost the game BEFORE logging in on this domain, sync it now!
         if (window.currentGameResult) {
           window.saveScoreToFirebase(window.currentGameResult.guesses, window.currentGameResult.isWin);
+        } else {
+          // CROSS-DOMAIN SYNC: Check if they already played today on a DIFFERENT domain
+          try {
+            const todayStr = new Date().toISOString().split('T')[0];
+            const q = query(collection(db, "daily_matches"), where("uid", "==", user.uid), where("date", "==", todayStr));
+            const querySnapshot = await getDocs(q);
+            
+            if (!querySnapshot.empty) {
+              // They already completed today's game elsewhere!
+              if (window.lockGame) window.lockGame(); // Lock the keyboard
+              const matchData = querySnapshot.docs[0].data();
+              
+              // Ensure local browser knows it's saved so it doesn't try to upload duplicates
+              localStorage.setItem(`score_saved_${todayStr}`, "true"); 
+              
+              // Show the "Already Played" modal
+              document.getElementById("modalTitle").textContent = matchData.won ? "Already Played!" : "Game Over";
+              document.getElementById("modalWord").textContent = "Score Synced Across Devices"; 
+              
+              if (window.loadDailyLeaderboard) window.loadDailyLeaderboard();
+              
+              const goModal = document.getElementById("gameOverModal");
+              goModal.classList.remove("hidden");
+              setTimeout(() => { goModal.classList.remove("opacity-0"); goModal.children[0].classList.remove("scale-95"); }, 50);
+            }
+          } catch (e) { console.error("Cross-domain sync error:", e); }
         }
 
       } else {
